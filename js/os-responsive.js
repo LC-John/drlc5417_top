@@ -1,5 +1,6 @@
 (function() {
 	let currentMode = null;
+	let sharedLoaded = false;
 	let desktopScriptLoaded = false;
 	let mobileScriptLoaded = false;
 	const MOBILE_BREAKPOINT = 768;
@@ -25,24 +26,47 @@
 		document.body.appendChild(script);
 	}
 
+	function loadSharedModules(callback) {
+		if (sharedLoaded) {
+			callback();
+			return;
+		}
+		
+		loadScript('js/shared/content-data.js', function() {
+			loadScript('js/games/minesweeper.js', function() {
+				loadScript('js/games/snake.js', function() {
+					sharedLoaded = true;
+					callback();
+				});
+			});
+		});
+	}
+
 	function switchToMobile() {
 		if (currentMode === 'mobile') return;
 		
 		currentMode = 'mobile';
 		document.body.className = 'mobile-mode';
 		
-		if (!mobileScriptLoaded) {
-			loadScript('js/os-mobile.js', function() {
-				mobileScriptLoaded = true;
+		loadSharedModules(function() {
+			if (!mobileScriptLoaded) {
+				loadScript('js/mobile-ui.js', function() {
+					loadScript('js/os-mobile.js', function() {
+						mobileScriptLoaded = true;
+						if (window.initMobileOS) {
+							window.initMobileOS();
+						}
+						if (window.initMobileUI) {
+							window.initMobileUI();
+						}
+					});
+				});
+			} else {
 				if (window.initMobileOS) {
 					window.initMobileOS();
 				}
-			});
-		} else {
-			if (window.initMobileOS) {
-				window.initMobileOS();
 			}
-		}
+		});
 	}
 
 	function switchToDesktop() {
@@ -51,11 +75,18 @@
 		currentMode = 'desktop';
 		document.body.className = 'desktop-mode os-desktop';
 		
-		if (!desktopScriptLoaded) {
-			loadScript('js/os-desktop.js', function() {
-				desktopScriptLoaded = true;
-			});
-		}
+		loadSharedModules(function() {
+			if (!desktopScriptLoaded) {
+				loadScript('js/desktop-ui.js', function() {
+					loadScript('js/os-desktop.js', function() {
+						desktopScriptLoaded = true;
+						if (window.initDesktopUI) {
+							window.initDesktopUI();
+						}
+					});
+				});
+			}
+		});
 	}
 
 	function checkDeviceAndSwitch() {
