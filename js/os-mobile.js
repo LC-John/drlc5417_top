@@ -193,7 +193,12 @@ function initMobileOS() {
 			const row = parseInt(e.target.getAttribute('data-row'));
 			const col = parseInt(e.target.getAttribute('data-col'));
 			
-			if (this.flagged[row][col]) return;
+			if (this.flagged[row][col]) {
+				this.flagged[row][col] = false;
+				this.renderBoard();
+				this.updateMinesCounter();
+				return;
+			}
 			
 			if (this.firstClick) {
 				this.placeMines(row, col);
@@ -226,6 +231,7 @@ function initMobileOS() {
 			this.flagged[row][col] = !this.flagged[row][col];
 			this.renderBoard();
 			this.updateMinesCounter();
+			this.checkWin();
 		},
 
 		reveal(row, col) {
@@ -346,14 +352,31 @@ function initMobileOS() {
 			this.updateScore();
 			this.placeFood();
 			this.draw();
+			const startBtn = document.getElementById('snake-start-btn-mobile');
+			if (startBtn) startBtn.textContent = 'Start';
 		},
 
 		start() {
 			if (this.gameRunning) return;
 			this.gameRunning = true;
-			this.dx = 1;
-			this.dy = 0;
+			if (this.dx === 0 && this.dy === 0) {
+				this.dx = 1;
+				this.dy = 0;
+			}
 			this.gameLoop = setInterval(() => this.update(), 150);
+			const startBtn = document.getElementById('snake-start-btn-mobile');
+			if (startBtn) startBtn.textContent = 'Pause';
+		},
+
+		pause() {
+			if (!this.gameRunning) return;
+			if (this.gameLoop) {
+				clearInterval(this.gameLoop);
+				this.gameLoop = null;
+			}
+			this.gameRunning = false;
+			const startBtn = document.getElementById('snake-start-btn-mobile');
+			if (startBtn) startBtn.textContent = 'Resume';
 		},
 
 		stop() {
@@ -464,8 +487,14 @@ function initMobileOS() {
 	const startBtnMobile = document.getElementById('snake-start-btn-mobile');
 	if (startBtnMobile) {
 		startBtnMobile.addEventListener('click', function() {
-			snake.reset();
-			snake.start();
+			if (snake.gameRunning) {
+				snake.pause();
+			} else if (startBtnMobile.textContent === 'Resume') {
+				snake.start();
+			} else {
+				snake.reset();
+				snake.start();
+			}
 		});
 	}
 
@@ -507,6 +536,42 @@ function initMobileOS() {
 				} else {
 					snake.changeDirection(0, -1);
 				}
+			}
+		});
+	}
+
+	const btnUpMobile = document.getElementById('btn-up-mobile');
+	if (btnUpMobile) {
+		btnUpMobile.addEventListener('click', function() {
+			if (snake.gameRunning) {
+				snake.changeDirection(0, -1);
+			}
+		});
+	}
+
+	const btnDownMobile = document.getElementById('btn-down-mobile');
+	if (btnDownMobile) {
+		btnDownMobile.addEventListener('click', function() {
+			if (snake.gameRunning) {
+				snake.changeDirection(0, 1);
+			}
+		});
+	}
+
+	const btnLeftMobile = document.getElementById('btn-left-mobile');
+	if (btnLeftMobile) {
+		btnLeftMobile.addEventListener('click', function() {
+			if (snake.gameRunning) {
+				snake.changeDirection(-1, 0);
+			}
+		});
+	}
+
+	const btnRightMobile = document.getElementById('btn-right-mobile');
+	if (btnRightMobile) {
+		btnRightMobile.addEventListener('click', function() {
+			if (snake.gameRunning) {
+				snake.changeDirection(1, 0);
 			}
 		});
 	}

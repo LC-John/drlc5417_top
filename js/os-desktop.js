@@ -411,7 +411,14 @@ $(document).ready(function() {
         },
 
         reveal(row, col) {
-            if (this.gameOver || this.revealed[row][col] || this.flagged[row][col]) return;
+            if (this.gameOver || this.revealed[row][col]) return;
+            
+            if (this.flagged[row][col]) {
+                this.flagged[row][col] = false;
+                this.renderBoard();
+                this.updateMinesCounter();
+                return;
+            }
             
             if (this.firstClick) {
                 this.placeMines(row, col);
@@ -452,6 +459,7 @@ $(document).ready(function() {
             this.flagged[row][col] = !this.flagged[row][col];
             this.renderBoard();
             this.updateMinesCounter();
+            this.checkWin();
         },
 
         revealAll() {

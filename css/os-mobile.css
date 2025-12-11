@@ -313,3 +313,44 @@ body.mobile-mode.dark-theme .mobile-app-content h3 {
 	color: #8b9eff;
 	border-bottom-color: #667eea;
 }
+
+.snake-controls {
+	margin-top: 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+}
+
+.control-row {
+	display: flex;
+	gap: 8px;
+	justify-content: center;
+}
+
+.control-btn {
+	width: 60px;
+	height: 60px;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	border: none;
+	border-radius: 12px;
+	color: white;
+	font-size: 24px;
+	cursor: pointer;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	transition: all 0.2s;
+	user-select: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.control-btn:active {
+	transform: scale(0.9);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+body.mobile-mode.dark-theme .control-btn {
+	background: linear-gradient(135deg, #4a5eaa 0%, #5a3a82 100%);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
