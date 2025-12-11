@@ -1,0 +1,40 @@
+.desktop-wrapper,
+.mobile-wrapper {
+	display: none;
+}
+
+body.desktop-mode .desktop-wrapper {
+	display: block;
+}
+
+body.desktop-mode .mobile-wrapper {
+	display: none;
+}
+
+body.mobile-mode .desktop-wrapper {
+	display: none;
+}
+
+body.mobile-mode .mobile-wrapper {
+	display: block;
+}
+
+body.desktop-mode {
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	overflow: hidden;
+	background: linear-gradient(135deg, #008080 0%, #006666 100%);
+	font-family: "MS Sans Serif", "Microsoft Sans Serif", sans-serif;
+	user-select: none;
+}
+
+body.mobile-mode {
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	overflow: hidden;
+	background: #000;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+	user-select: none;
+}
