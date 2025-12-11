@@ -118,14 +118,11 @@
 		const width = window.innerWidth;
 		console.log('[Responsive] Window width:', width, 'Current mode:', currentMode);
 		
-		if (isMobileDevice()) {
-			console.log('[Responsive] Should switch to mobile');
+		if (width <= MOBILE_BREAKPOINT) {
+			console.log('[Responsive] Switch to mobile (width <= 768)');
 			switchToMobile();
-		} else if (isDesktopDevice()) {
-			console.log('[Responsive] Should switch to desktop');
-			switchToDesktop();
 		} else {
-			console.log('[Responsive] Default to desktop');
+			console.log('[Responsive] Switch to desktop (width > 768)');
 			switchToDesktop();
 		}
 	}
@@ -133,6 +130,8 @@
 	let resizeTimer;
 	window.addEventListener('resize', function() {
 		clearTimeout(resizeTimer);
+		const currentWidth = window.innerWidth;
+		console.log('[Responsive] Resize detected, current width:', currentWidth);
 		resizeTimer = setTimeout(function() {
 			checkDeviceAndSwitch();
 		}, 250);
