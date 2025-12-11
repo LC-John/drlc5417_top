@@ -81,6 +81,9 @@ function initDesktopUI() {
 	}
 	
 	function initDesktopGames() {
+		if (window.desktopGamesInitialized) return;
+		window.desktopGamesInitialized = true;
+		
 		const minesweeperGame = new Minesweeper({
 			rows: 10,
 			cols: 10,
@@ -118,6 +121,9 @@ function initDesktopUI() {
 				}
 			}
 		});
+		
+		window.desktopMinesweeperGame = minesweeperGame;
+		window.desktopSnakeGame = snakeGame;
 	}
 }
 

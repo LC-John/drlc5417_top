@@ -65,6 +65,9 @@
 				if (window.initMobileOS) {
 					window.initMobileOS();
 				}
+				if (window.initMobileUI) {
+					window.initMobileUI();
+				}
 			}
 		});
 	}
@@ -85,6 +88,10 @@
 						}
 					});
 				});
+			} else {
+				if (window.initDesktopUI) {
+					window.initDesktopUI();
+				}
 			}
 		});
 	}

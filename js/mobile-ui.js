@@ -70,6 +70,9 @@ function initMobileUI() {
 	}
 	
 	function initMobileGames() {
+		if (window.mobileGamesInitialized) return;
+		window.mobileGamesInitialized = true;
+		
 		const minesweeperGame = new Minesweeper({
 			rows: 8,
 			cols: 8,
@@ -113,6 +116,9 @@ function initMobileUI() {
 				}
 			}
 		});
+		
+		window.mobileMinesweeperGame = minesweeperGame;
+		window.mobileSnakeGame = snakeGame;
 	}
 }
 
