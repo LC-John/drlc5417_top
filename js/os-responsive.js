@@ -48,6 +48,18 @@
 		currentMode = 'mobile';
 		document.body.className = 'mobile-mode';
 		
+		// Force hide desktop wrapper
+		const desktopWrapper = document.querySelector('.desktop-wrapper');
+		if (desktopWrapper) {
+			desktopWrapper.style.display = 'none';
+		}
+		
+		// Force show mobile wrapper
+		const mobileWrapper = document.querySelector('.mobile-wrapper');
+		if (mobileWrapper) {
+			mobileWrapper.style.display = 'block';
+		}
+		
 		// Hide all desktop windows to prevent inline styles from overriding CSS
 		const desktopWindows = document.querySelectorAll('.window');
 		desktopWindows.forEach(function(win) {
@@ -83,6 +95,18 @@
 		
 		currentMode = 'desktop';
 		document.body.className = 'desktop-mode os-desktop';
+		
+		// Force show desktop wrapper
+		const desktopWrapper = document.querySelector('.desktop-wrapper');
+		if (desktopWrapper) {
+			desktopWrapper.style.display = 'block';
+		}
+		
+		// Force hide mobile wrapper
+		const mobileWrapper = document.querySelector('.mobile-wrapper');
+		if (mobileWrapper) {
+			mobileWrapper.style.display = 'none';
+		}
 		
 		// Hide all mobile app views to prevent inline styles from overriding CSS
 		const mobileAppViews = document.querySelectorAll('.mobile-app-view');
