@@ -3,18 +3,9 @@
 	let sharedLoaded = false;
 	let desktopScriptLoaded = false;
 	let mobileScriptLoaded = false;
-	const MOBILE_BREAKPOINT = 768;
-	const DESKTOP_BREAKPOINT = 992;
-
-	function isMobileDevice() {
-		const width = window.innerWidth;
-		return width <= MOBILE_BREAKPOINT;
-	}
-
-	function isDesktopDevice() {
-		const width = window.innerWidth;
-		return width >= DESKTOP_BREAKPOINT;
-	}
+	
+	// Use matchMedia for more reliable viewport detection
+	const mobileMediaQuery = window.matchMedia('(max-width: 768px)');
 
 	function loadScript(src, callback) {
 		const script = document.createElement('script');
@@ -115,27 +106,23 @@
 	}
 
 	function checkDeviceAndSwitch() {
-		const width = window.innerWidth;
-		console.log('[Responsive] Window width:', width, 'Current mode:', currentMode);
+		console.log('[Responsive] Media query matches:', mobileMediaQuery.matches, 'Current mode:', currentMode);
 		
-		if (width <= MOBILE_BREAKPOINT) {
-			console.log('[Responsive] Switch to mobile (width <= 768)');
+		if (mobileMediaQuery.matches) {
+			console.log('[Responsive] Switch to mobile (viewport <= 768px)');
 			switchToMobile();
 		} else {
-			console.log('[Responsive] Switch to desktop (width > 768)');
+			console.log('[Responsive] Switch to desktop (viewport > 768px)');
 			switchToDesktop();
 		}
 	}
 
-	let resizeTimer;
-	window.addEventListener('resize', function() {
-		clearTimeout(resizeTimer);
-		const currentWidth = window.innerWidth;
-		console.log('[Responsive] Resize detected, current width:', currentWidth);
-		resizeTimer = setTimeout(function() {
-			checkDeviceAndSwitch();
-		}, 250);
+	// Listen to media query changes
+	mobileMediaQuery.addListener(function(e) {
+		console.log('[Responsive] Media query changed, matches:', e.matches);
+		checkDeviceAndSwitch();
 	});
 
+	// Initial check
 	checkDeviceAndSwitch();
 })();
