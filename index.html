@@ -7,6 +7,7 @@
 		<link href="css/shared.css" rel="stylesheet">
 		<link href="css/os-desktop.css" rel="stylesheet">
 		<link href="css/os-mobile.css" rel="stylesheet">
+		<link href="css/os-tablet.css" rel="stylesheet">
 		<link href="css/os-responsive.css" rel="stylesheet">
 		<script src="js/jquery.min.js"></script>
 	</head>
@@ -294,6 +295,122 @@
 				<div class="mobile-navbar">
 					<button class="nav-btn" id="theme-btn-mobile">💡</button>
 					<button class="nav-btn" id="home-btn">⌂</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="tablet-wrapper">
+			<div class="tablet-device">
+				<div class="tablet-statusbar">
+					<span id="tablet-time">12:00</span>
+				</div>
+
+				<div class="tablet-screen" id="tablet-home-screen">
+					<div class="tablet-apps">
+						<div class="tablet-app" data-app="about">
+							<div class="app-icon app-icon-about">
+								<img src="img/me.jpg" alt="About Me">
+							</div>
+							<span class="app-name">About Me</span>
+						</div>
+						<div class="tablet-app" data-app="works">
+							<div class="app-icon app-icon-works">📁</div>
+							<span class="app-name">My Work</span>
+						</div>
+						<div class="tablet-app" data-app="github">
+							<div class="app-icon app-icon-github">
+								<svg height="60" width="60" viewBox="0 0 16 16" fill="white">
+									<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+								</svg>
+							</div>
+							<span class="app-name">GitHub</span>
+						</div>
+						<div class="tablet-app" data-app="minesweeper">
+							<div class="app-icon app-icon-game">💣</div>
+							<span class="app-name">Minesweeper</span>
+						</div>
+						<div class="tablet-app" data-app="snake">
+							<div class="app-icon app-icon-snake">🐍</div>
+							<span class="app-name">Snake</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="tablet-app-view" id="tablet-app-about">
+					<div class="tablet-app-header">
+						<button class="tablet-back-btn">←</button>
+						<span class="tablet-app-title">About Me</span>
+					</div>
+					<div class="tablet-app-content"></div>
+				</div>
+
+				<div class="tablet-app-view" id="tablet-app-works">
+					<div class="tablet-app-header">
+						<button class="tablet-back-btn">←</button>
+						<span class="tablet-app-title">My Work</span>
+					</div>
+					<div class="tablet-app-content"></div>
+				</div>
+
+				<div class="tablet-app-view" id="tablet-app-github">
+					<div class="tablet-app-header">
+						<button class="tablet-back-btn">←</button>
+						<span class="tablet-app-title">GitHub</span>
+					</div>
+					<div class="tablet-app-content" style="text-align: center; padding-top: 50px;"></div>
+				</div>
+
+				<div class="tablet-app-view" id="tablet-app-minesweeper">
+					<div class="tablet-app-header">
+						<button class="tablet-back-btn">←</button>
+						<span class="tablet-app-title">Minesweeper</span>
+					</div>
+					<div class="tablet-app-content" style="padding: 20px; text-align: center;">
+						<div class="minesweeper-header">
+							<div class="mines-counter" id="tablet-mines-counter">020</div>
+							<button class="reset-btn" id="tablet-reset-btn">🙂</button>
+							<div class="timer" id="tablet-timer">000</div>
+						</div>
+						<div class="minesweeper-board" id="tablet-minesweeper-board"></div>
+					</div>
+				</div>
+
+				<div class="tablet-app-view" id="tablet-app-snake">
+					<div class="tablet-app-header">
+						<button class="tablet-back-btn">←</button>
+						<span class="tablet-app-title">Snake</span>
+					</div>
+					<div class="tablet-app-content" style="padding: 20px; text-align: center;">
+						<div class="snake-header">
+							<div class="snake-score">Score: <span id="tablet-snake-score">0</span></div>
+							<button class="snake-start-btn" id="tablet-snake-start-btn">Start</button>
+							<div class="snake-high-score">High: <span id="tablet-snake-high-score">0</span></div>
+						</div>
+						<canvas id="tablet-snake-canvas" width="600" height="600"></canvas>
+						<div class="tablet-snake-controls">
+							<div class="tablet-control-row">
+								<button class="tablet-control-btn" id="tablet-btn-up">▲</button>
+							</div>
+							<div class="tablet-control-row">
+								<button class="tablet-control-btn" id="tablet-btn-left">◀</button>
+								<button class="tablet-control-btn" id="tablet-btn-down">▼</button>
+								<button class="tablet-control-btn" id="tablet-btn-right">▶</button>
+							</div>
+						</div>
+						<div class="snake-game-over" id="tablet-snake-game-over" style="display: none;">
+							<div class="snake-game-over-content">
+								<h2>Game Over!</h2>
+								<p>Your Score: <span id="tablet-final-score">0</span></p>
+								<p>High Score: <span id="tablet-game-over-high-score">0</span></p>
+								<button class="snake-restart-btn" id="tablet-snake-restart-btn">Play Again</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tablet-navbar">
+					<button class="tablet-nav-btn" id="tablet-theme-btn">💡</button>
+					<button class="tablet-nav-btn" id="tablet-home-btn">⌂</button>
 				</div>
 			</div>
 		</div>

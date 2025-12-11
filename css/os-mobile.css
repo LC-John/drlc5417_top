@@ -77,7 +77,7 @@
 }
 
 .app-icon-works {
-	background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+	background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
 }
 
 .app-icon-github {
@@ -85,11 +85,11 @@
 }
 
 .app-icon-game {
-	background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+	background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
 }
 
 .app-icon-snake {
-	background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+	background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
 }
 
 .app-name {
@@ -280,6 +280,16 @@
 #mobile-app-snake #snake-canvas-mobile {
 	max-width: 100%;
 	margin: 0 auto;
+}
+
+#mobile-app-minesweeper .mine-cell.flagged::after {
+	content: '🚩';
+	font-size: 18px;
+}
+
+#mobile-app-minesweeper .mine-cell.revealed.mine::after {
+	content: '💣';
+	font-size: 18px;
 }
 
 body.mobile-mode.dark-theme .mobile-phone {

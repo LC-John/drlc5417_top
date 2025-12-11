@@ -1,0 +1,366 @@
+.tablet-device {
+	width: 100%;
+	max-width: 768px;
+	height: 100vh;
+	margin: 0 auto;
+	background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.tablet-statusbar {
+	height: 32px;
+	background: #000;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 20px;
+	font-size: 14px;
+	font-weight: bold;
+	flex-shrink: 0;
+}
+
+.tablet-screen {
+	flex: 1;
+	background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+	overflow-y: auto;
+	padding: 40px;
+	display: flex;
+	flex-direction: column;
+}
+
+.tablet-apps {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 40px;
+	padding: 20px;
+}
+
+.tablet-app {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	cursor: pointer;
+	transition: transform 0.2s;
+}
+
+.tablet-app:active {
+	transform: scale(0.95);
+}
+
+.tablet-app .app-icon {
+	width: 90px;
+	height: 90px;
+	border-radius: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 48px;
+	margin-bottom: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.tablet-app .app-icon-about {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	overflow: hidden;
+	padding: 0;
+}
+
+.tablet-app .app-icon-about img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.tablet-app .app-icon-works {
+	background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+}
+
+.tablet-app .app-icon-github {
+	background: #000;
+}
+
+.tablet-app .app-icon-game {
+	background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+}
+
+.tablet-app .app-icon-snake {
+	background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+}
+
+.tablet-app .app-name {
+	color: #fff;
+	font-size: 14px;
+	text-align: center;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.tablet-app-view {
+	position: absolute;
+	top: 32px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #f5f5f5;
+	display: none;
+	flex-direction: column;
+	z-index: 100;
+	padding-bottom: 70px;
+}
+
+.tablet-app-view.active {
+	display: flex;
+}
+
+.tablet-app-header {
+	height: 56px;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 20px;
+	flex-shrink: 0;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tablet-back-btn {
+	display: none;
+}
+
+.tablet-app-title {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.tablet-app-content {
+	flex: 1;
+	overflow-y: auto;
+	padding: 30px;
+	background: #fff;
+}
+
+.tablet-app-content .about-photo {
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+.tablet-app-content .about-photo img {
+	width: 180px;
+	height: 180px;
+	border-radius: 90px;
+	border: 4px solid #667eea;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tablet-app-content .about-info p {
+	margin: 16px 0;
+	line-height: 1.8;
+	color: #333;
+	font-size: 16px;
+}
+
+.tablet-app-content .about-info b {
+	color: #667eea;
+}
+
+.tablet-app-content .about-info a {
+	color: #667eea;
+	text-decoration: none;
+}
+
+.tablet-app-content h3 {
+	color: #667eea;
+	border-bottom: 3px solid #667eea;
+	padding-bottom: 8px;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	font-size: 20px;
+}
+
+.tablet-app-content .paper-item {
+	margin-bottom: 20px;
+	padding: 15px;
+	background: #f9f9f9;
+	border-left: 4px solid #667eea;
+	font-size: 15px;
+	line-height: 1.6;
+	color: #333;
+}
+
+.tablet-app-content .paper-item a {
+	color: #667eea;
+	text-decoration: none;
+}
+
+.tablet-btn {
+	display: inline-block;
+	padding: 16px 40px;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	text-decoration: none;
+	border-radius: 30px;
+	font-weight: bold;
+	font-size: 16px;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+	transition: transform 0.2s;
+}
+
+.tablet-btn:active {
+	transform: scale(0.95);
+}
+
+.tablet-navbar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 70px;
+	background: #000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-shrink: 0;
+	border-top: 1px solid #333;
+	z-index: 200;
+}
+
+.tablet-nav-btn {
+	background: none;
+	border: none;
+	color: #fff;
+	font-size: 32px;
+	cursor: pointer;
+	padding: 12px 30px;
+	border-radius: 10px;
+	transition: background 0.2s;
+}
+
+.tablet-nav-btn:active {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+#tablet-theme-btn {
+	position: absolute;
+	left: 30px;
+}
+
+#tablet-theme-btn.dimmed {
+	opacity: 0.3;
+	filter: grayscale(80%);
+}
+
+#tablet-home-btn {
+	position: relative;
+}
+
+.tablet-app-content::-webkit-scrollbar {
+	width: 8px;
+}
+
+.tablet-app-content::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+.tablet-app-content::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 4px;
+}
+
+.tablet-app-content::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+#tablet-app-minesweeper .minesweeper-board,
+#tablet-app-snake #tablet-snake-canvas {
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+#tablet-app-minesweeper .mine-cell.flagged::after {
+	content: '🚩';
+	font-size: 20px;
+}
+
+#tablet-app-minesweeper .mine-cell.revealed.mine::after {
+	content: '💣';
+	font-size: 20px;
+}
+
+.tablet-snake-controls {
+	margin-top: 25px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+}
+
+.tablet-control-row {
+	display: flex;
+	gap: 12px;
+	justify-content: center;
+}
+
+.tablet-control-btn {
+	width: 80px;
+	height: 80px;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	border: none;
+	border-radius: 16px;
+	color: white;
+	font-size: 32px;
+	cursor: pointer;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+	transition: all 0.2s;
+	user-select: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.tablet-control-btn:active {
+	transform: scale(0.9);
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+body.tablet-mode.dark-theme .tablet-device {
+	background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+}
+
+body.tablet-mode.dark-theme .tablet-screen {
+	background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+}
+
+body.tablet-mode.dark-theme .tablet-app-view {
+	background: #1a1a1a;
+}
+
+body.tablet-mode.dark-theme .tablet-app-content {
+	background: #1a1a1a;
+	color: #e0e0e0;
+}
+
+body.tablet-mode.dark-theme .tablet-app-content .about-info p {
+	color: #e0e0e0;
+}
+
+body.tablet-mode.dark-theme .tablet-app-content .paper-item {
+	background: #2a2a2a;
+	color: #e0e0e0;
+	border-left-color: #667eea;
+}
+
+body.tablet-mode.dark-theme .tablet-app-content h3 {
+	color: #8b9eff;
+	border-bottom-color: #667eea;
+}
+
+body.tablet-mode.dark-theme .tablet-control-btn {
+	background: linear-gradient(135deg, #4a5eaa 0%, #5a3a82 100%);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}

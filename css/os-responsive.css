@@ -1,5 +1,6 @@
 .desktop-wrapper,
-.mobile-wrapper {
+.mobile-wrapper,
+.tablet-wrapper {
 	display: none;
 }
 
@@ -7,15 +8,26 @@ body.desktop-mode .desktop-wrapper {
 	display: block !important;
 }
 
-body.desktop-mode .mobile-wrapper {
+body.desktop-mode .mobile-wrapper,
+body.desktop-mode .tablet-wrapper {
 	display: none !important;
 }
 
-body.mobile-mode .desktop-wrapper {
+body.mobile-mode .desktop-wrapper,
+body.mobile-mode .tablet-wrapper {
 	display: none !important;
 }
 
 body.mobile-mode .mobile-wrapper {
+	display: block !important;
+}
+
+body.tablet-mode .desktop-wrapper,
+body.tablet-mode .mobile-wrapper {
+	display: none !important;
+}
+
+body.tablet-mode .tablet-wrapper {
 	display: block !important;
 }
 
@@ -30,6 +42,16 @@ body.desktop-mode {
 }
 
 body.mobile-mode {
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	overflow: hidden;
+	background: #000;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+	user-select: none;
+}
+
+body.tablet-mode {
 	margin: 0;
 	padding: 0;
 	height: 100vh;
