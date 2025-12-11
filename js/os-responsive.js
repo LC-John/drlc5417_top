@@ -143,16 +143,16 @@
 
 	function checkDeviceAndSwitch() {
 		const width = window.innerWidth;
-		console.log('[Responsive] Window width:', width, 'Current mode:', currentMode);
+		console.log('[Responsive] Window width: ' + width + ', Current mode: ' + currentMode);
 		
 		if (isMobileDevice()) {
-			console.log('[Responsive] Should switch to mobile');
+			console.log('[Responsive] Should switch to mobile (width <= 768)');
 			switchToMobile();
 		} else if (isDesktopDevice()) {
-			console.log('[Responsive] Should switch to desktop');
+			console.log('[Responsive] Should switch to desktop (width >= 992)');
 			switchToDesktop();
 		} else {
-			console.log('[Responsive] Default to desktop');
+			console.log('[Responsive] Default to desktop (768 < width < 992)');
 			switchToDesktop();
 		}
 	}
