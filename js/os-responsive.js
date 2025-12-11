@@ -48,6 +48,12 @@
 		currentMode = 'mobile';
 		document.body.className = 'mobile-mode';
 		
+		// Hide all desktop windows to prevent inline styles from overriding CSS
+		const desktopWindows = document.querySelectorAll('.window');
+		desktopWindows.forEach(function(win) {
+			win.style.display = 'none';
+		});
+		
 		loadSharedModules(function() {
 			if (!mobileScriptLoaded) {
 				loadScript('js/mobile-ui.js', function() {
@@ -77,6 +83,16 @@
 		
 		currentMode = 'desktop';
 		document.body.className = 'desktop-mode os-desktop';
+		
+		// Hide all mobile app views to prevent inline styles from overriding CSS
+		const mobileAppViews = document.querySelectorAll('.mobile-app-view');
+		mobileAppViews.forEach(function(view) {
+			view.classList.remove('active');
+		});
+		const mobileHomeScreen = document.getElementById('mobile-home-screen');
+		if (mobileHomeScreen) {
+			mobileHomeScreen.style.display = 'flex';
+		}
 		
 		loadSharedModules(function() {
 			if (!desktopScriptLoaded) {
