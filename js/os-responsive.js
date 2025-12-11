@@ -45,19 +45,24 @@
 	function switchToMobile() {
 		if (currentMode === 'mobile') return;
 		
+		console.log('[Responsive] Switching to mobile mode');
 		currentMode = 'mobile';
 		document.body.className = 'mobile-mode';
 		
 		// Force hide desktop wrapper
 		const desktopWrapper = document.querySelector('.desktop-wrapper');
+		console.log('[Responsive] Desktop wrapper:', desktopWrapper);
 		if (desktopWrapper) {
 			desktopWrapper.style.display = 'none';
+			console.log('[Responsive] Desktop wrapper hidden');
 		}
 		
 		// Force show mobile wrapper
 		const mobileWrapper = document.querySelector('.mobile-wrapper');
+		console.log('[Responsive] Mobile wrapper:', mobileWrapper);
 		if (mobileWrapper) {
 			mobileWrapper.style.display = 'block';
+			console.log('[Responsive] Mobile wrapper shown');
 		}
 		
 		// Hide all desktop windows to prevent inline styles from overriding CSS
@@ -137,11 +142,17 @@
 	}
 
 	function checkDeviceAndSwitch() {
+		const width = window.innerWidth;
+		console.log('[Responsive] Window width:', width, 'Current mode:', currentMode);
+		
 		if (isMobileDevice()) {
+			console.log('[Responsive] Should switch to mobile');
 			switchToMobile();
 		} else if (isDesktopDevice()) {
+			console.log('[Responsive] Should switch to desktop');
 			switchToDesktop();
 		} else {
+			console.log('[Responsive] Default to desktop');
 			switchToDesktop();
 		}
 	}
