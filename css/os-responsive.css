@@ -4,19 +4,19 @@
 }
 
 body.desktop-mode .desktop-wrapper {
-	display: block;
+	display: block !important;
 }
 
 body.desktop-mode .mobile-wrapper {
-	display: none;
+	display: none !important;
 }
 
 body.mobile-mode .desktop-wrapper {
-	display: none;
+	display: none !important;
 }
 
 body.mobile-mode .mobile-wrapper {
-	display: block;
+	display: block !important;
 }
 
 body.desktop-mode {

@@ -49,22 +49,6 @@
 		currentMode = 'mobile';
 		document.body.className = 'mobile-mode';
 		
-		// Force hide desktop wrapper
-		const desktopWrapper = document.querySelector('.desktop-wrapper');
-		console.log('[Responsive] Desktop wrapper:', desktopWrapper);
-		if (desktopWrapper) {
-			desktopWrapper.style.display = 'none';
-			console.log('[Responsive] Desktop wrapper hidden');
-		}
-		
-		// Force show mobile wrapper
-		const mobileWrapper = document.querySelector('.mobile-wrapper');
-		console.log('[Responsive] Mobile wrapper:', mobileWrapper);
-		if (mobileWrapper) {
-			mobileWrapper.style.display = 'block';
-			console.log('[Responsive] Mobile wrapper shown');
-		}
-		
 		// Hide all desktop windows to prevent inline styles from overriding CSS
 		const desktopWindows = document.querySelectorAll('.window');
 		desktopWindows.forEach(function(win) {
@@ -98,22 +82,11 @@
 	function switchToDesktop() {
 		if (currentMode === 'desktop') return;
 		
+		console.log('[Responsive] Switching to desktop mode');
 		currentMode = 'desktop';
 		document.body.className = 'desktop-mode os-desktop';
 		
-		// Force show desktop wrapper
-		const desktopWrapper = document.querySelector('.desktop-wrapper');
-		if (desktopWrapper) {
-			desktopWrapper.style.display = 'block';
-		}
-		
-		// Force hide mobile wrapper
-		const mobileWrapper = document.querySelector('.mobile-wrapper');
-		if (mobileWrapper) {
-			mobileWrapper.style.display = 'none';
-		}
-		
-		// Hide all mobile app views to prevent inline styles from overriding CSS
+		// Hide all mobile app views
 		const mobileAppViews = document.querySelectorAll('.mobile-app-view');
 		mobileAppViews.forEach(function(view) {
 			view.classList.remove('active');
@@ -143,13 +116,16 @@
 
 	function checkDeviceAndSwitch() {
 		const width = window.innerWidth;
-		console.log('[Responsive] Window width: ' + width + ', Current mode: ' + currentMode);
+		console.log('[Responsive] Window width:', width, 'Current mode:', currentMode);
 		
-		if (width <= MOBILE_BREAKPOINT) {
-			console.log('[Responsive] Switching to mobile (width <= 768)');
+		if (isMobileDevice()) {
+			console.log('[Responsive] Should switch to mobile');
 			switchToMobile();
+		} else if (isDesktopDevice()) {
+			console.log('[Responsive] Should switch to desktop');
+			switchToDesktop();
 		} else {
-			console.log('[Responsive] Switching to desktop (width > 768)');
+			console.log('[Responsive] Default to desktop');
 			switchToDesktop();
 		}
 	}
