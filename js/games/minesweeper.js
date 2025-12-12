@@ -11,6 +11,7 @@ class Minesweeper {
 		
 		this.onStateChange = config.onStateChange || (() => {});
 		this.cellSize = config.cellSize || 30;
+		this.useDoubleClick = config.useDoubleClick || false;
 		
 		this.board = [];
 		this.revealed = [];
@@ -19,6 +20,10 @@ class Minesweeper {
 		this.firstClick = true;
 		this.timer = null;
 		this.seconds = 0;
+		
+		this.lastClickTime = 0;
+		this.lastClickCell = null;
+		this.doubleClickDelay = 300;
 		
 		this.bindEvents();
 	}
@@ -29,22 +34,53 @@ class Minesweeper {
 		}
 		
 		if (this.boardElement) {
-			this.boardElement.addEventListener('click', (e) => {
-				if (e.target.classList.contains('mine-cell')) {
-					const row = parseInt(e.target.getAttribute('data-row'));
-					const col = parseInt(e.target.getAttribute('data-col'));
-					this.reveal(row, col);
-				}
-			});
-			
-			this.boardElement.addEventListener('contextmenu', (e) => {
-				e.preventDefault();
-				if (e.target.classList.contains('mine-cell')) {
-					const row = parseInt(e.target.getAttribute('data-row'));
-					const col = parseInt(e.target.getAttribute('data-col'));
-					this.toggleFlag(row, col);
-				}
-			});
+			if (this.useDoubleClick) {
+				this.boardElement.addEventListener('click', (e) => {
+					if (e.target.classList.contains('mine-cell')) {
+						const row = parseInt(e.target.getAttribute('data-row'));
+						const col = parseInt(e.target.getAttribute('data-col'));
+						const cellKey = `${row}-${col}`;
+						const currentTime = Date.now();
+						
+						if (this.lastClickCell === cellKey && 
+							currentTime - this.lastClickTime < this.doubleClickDelay) {
+							this.toggleFlag(row, col);
+							this.lastClickCell = null;
+							this.lastClickTime = 0;
+						} else {
+							this.lastClickCell = cellKey;
+							this.lastClickTime = currentTime;
+							setTimeout(() => {
+								if (this.lastClickCell === cellKey) {
+									this.reveal(row, col);
+									this.lastClickCell = null;
+								}
+							}, this.doubleClickDelay);
+						}
+					}
+				});
+				
+				this.boardElement.addEventListener('contextmenu', (e) => {
+					e.preventDefault();
+				});
+			} else {
+				this.boardElement.addEventListener('click', (e) => {
+					if (e.target.classList.contains('mine-cell')) {
+						const row = parseInt(e.target.getAttribute('data-row'));
+						const col = parseInt(e.target.getAttribute('data-col'));
+						this.reveal(row, col);
+					}
+				});
+				
+				this.boardElement.addEventListener('contextmenu', (e) => {
+					e.preventDefault();
+					if (e.target.classList.contains('mine-cell')) {
+						const row = parseInt(e.target.getAttribute('data-row'));
+						const col = parseInt(e.target.getAttribute('data-col'));
+						this.toggleFlag(row, col);
+					}
+				});
+			}
 		}
 	}
 	

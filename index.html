@@ -10,6 +10,7 @@
 		<link href="css/os-tablet.css" rel="stylesheet">
 		<link href="css/os-responsive.css" rel="stylesheet">
 		<script src="js/jquery.min.js"></script>
+		<script src="js/config.js"></script>
 	</head>
 	<body>
 		<div class="desktop-wrapper">
@@ -40,6 +41,10 @@
 					<div class="desktop-icon" data-window="snake" style="top: 140px; left: 135px;">
 						<div class="icon-snake">🐍</div>
 						<span>Snake</span>
+					</div>
+					<div class="desktop-icon" data-window="echobot" style="top: 250px; left: 135px;">
+						<div class="icon-chat">💬</div>
+						<span>Chat</span>
 					</div>
 				</div>
 
@@ -159,6 +164,30 @@
 					<div class="resize-handle resize-bottom"></div>
 					<div class="resize-handle resize-corner"></div>
 				</div>
+
+				<div class="window" id="window-echobot" style="top: 120px; left: 450px; width: 500px; height: 600px;">
+					<div class="window-titlebar">
+						<div class="window-title">
+							<span>💬</span>
+							<span>Chat</span>
+						</div>
+						<div class="window-controls">
+							<div class="window-btn minimize-btn">_</div>
+							<div class="window-btn maximize-btn">□</div>
+							<div class="window-btn close-btn">×</div>
+						</div>
+					</div>
+					<div class="window-content" id="echobot-content" style="padding: 0; display: flex; flex-direction: column; height: calc(100% - 30px);">
+						<div class="chat-messages" id="chat-messages"></div>
+						<div class="chat-input-container">
+							<input type="text" class="chat-input" id="chat-input" placeholder="Type a message...">
+							<button class="chat-send-btn" id="chat-send-btn">Send</button>
+						</div>
+					</div>
+					<div class="resize-handle resize-right"></div>
+					<div class="resize-handle resize-bottom"></div>
+					<div class="resize-handle resize-corner"></div>
+				</div>
 			</div>
 
 			<div class="start-menu" id="start-menu">
@@ -216,6 +245,10 @@
 						<div class="mobile-app" data-app="snake">
 							<div class="app-icon app-icon-snake">🐍</div>
 							<span class="app-name">Snake</span>
+						</div>
+						<div class="mobile-app" data-app="echobot">
+							<div class="app-icon app-icon-chat">💬</div>
+							<span class="app-name">Chat</span>
 						</div>
 					</div>
 				</div>
@@ -292,6 +325,20 @@
 					</div>
 				</div>
 
+				<div class="mobile-app-view" id="mobile-app-echobot">
+					<div class="mobile-app-header">
+						<button class="back-btn">←</button>
+						<span class="app-title">Chat</span>
+					</div>
+					<div class="mobile-app-content" style="padding: 0; display: flex; flex-direction: column; height: calc(100% - 50px);">
+						<div class="chat-messages" id="chat-messages-mobile"></div>
+						<div class="chat-input-container">
+							<input type="text" class="chat-input" id="chat-input-mobile" placeholder="Type a message...">
+							<button class="chat-send-btn" id="chat-send-btn-mobile">Send</button>
+						</div>
+					</div>
+				</div>
+
 				<div class="mobile-navbar">
 					<button class="nav-btn" id="theme-btn-mobile">💡</button>
 					<button class="nav-btn" id="home-btn">⌂</button>
@@ -332,6 +379,10 @@
 						<div class="tablet-app" data-app="snake">
 							<div class="app-icon app-icon-snake">🐍</div>
 							<span class="app-name">Snake</span>
+						</div>
+						<div class="tablet-app" data-app="echobot">
+							<div class="app-icon app-icon-chat">💬</div>
+							<span class="app-name">Chat</span>
 						</div>
 					</div>
 				</div>
@@ -404,6 +455,20 @@
 								<p>High Score: <span id="tablet-game-over-high-score">0</span></p>
 								<button class="snake-restart-btn" id="tablet-snake-restart-btn">Play Again</button>
 							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tablet-app-view" id="tablet-app-echobot">
+					<div class="tablet-app-header">
+						<button class="tablet-back-btn">←</button>
+						<span class="tablet-app-title">Chat</span>
+					</div>
+					<div class="tablet-app-content" style="padding: 0; display: flex; flex-direction: column; height: calc(100% - 60px);">
+						<div class="chat-messages" id="chat-messages-tablet"></div>
+						<div class="chat-input-container">
+							<input type="text" class="chat-input" id="chat-input-tablet" placeholder="Type a message...">
+							<button class="chat-send-btn" id="chat-send-btn-tablet">Send</button>
 						</div>
 					</div>
 				</div>

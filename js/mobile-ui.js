@@ -10,6 +10,7 @@ function initMobileUI() {
 	renderWorksContent();
 	renderGitHubContent();
 	initMobileGames();
+	initMobileEchoBot();
 	
 	function renderAboutContent() {
 		const container = document.querySelector('#mobile-app-about .mobile-app-content');
@@ -82,6 +83,7 @@ function initMobileUI() {
 			counterElement: document.getElementById('mines-counter-mobile'),
 			timerElement: document.getElementById('timer-mobile'),
 			resetButton: document.getElementById('reset-btn-mobile'),
+			useDoubleClick: true,
 			onStateChange: (event) => {
 				const resetBtn = document.getElementById('reset-btn-mobile');
 				if (resetBtn && event.emoji) {
@@ -119,6 +121,71 @@ function initMobileUI() {
 		
 		window.mobileMinesweeperGame = minesweeperGame;
 		window.mobileSnakeGame = snakeGame;
+	}
+	
+	function initMobileEchoBot() {
+		if (window.mobileEchoBotInitialized) return;
+		window.mobileEchoBotInitialized = true;
+		
+		const chatMessages = document.getElementById('chat-messages-mobile');
+		const chatInput = document.getElementById('chat-input-mobile');
+		const chatSendBtn = document.getElementById('chat-send-btn-mobile');
+		
+		function addMessage(text, isUser) {
+			const messageDiv = document.createElement('div');
+			messageDiv.className = 'chat-message ' + (isUser ? 'user' : 'bot');
+			messageDiv.textContent = text;
+			chatMessages.appendChild(messageDiv);
+			chatMessages.scrollTop = chatMessages.scrollHeight;
+			return messageDiv;
+		}
+		
+		function sendMessage() {
+			const message = chatInput.value.trim();
+			if (!message) return;
+			
+			addMessage(message, true);
+			chatInput.value = '';
+			chatSendBtn.disabled = true;
+			chatInput.disabled = true;
+			
+			const loadingMsg = addMessage('思考中...', false);
+			
+			fetch(window.ChatConfig.getApiUrl() + '/api/chat', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ message: message })
+			})
+			.then(function(response) {
+				if (!response.ok) {
+					throw new Error('网络请求失败');
+				}
+				return response.json();
+			})
+			.then(function(data) {
+				loadingMsg.remove();
+				addMessage(data.reply, false);
+			})
+			.catch(function(error) {
+				loadingMsg.remove();
+				addMessage('抱歉，发生了错误。请稍后再试。', false);
+				console.error('Chat error:', error);
+			})
+			.finally(function() {
+				chatSendBtn.disabled = false;
+				chatInput.disabled = false;
+				chatInput.focus();
+			});
+		}
+		
+		chatSendBtn.addEventListener('click', sendMessage);
+		chatInput.addEventListener('keypress', function(e) {
+			if (e.key === 'Enter') {
+				sendMessage();
+			}
+		});
 	}
 }
 
