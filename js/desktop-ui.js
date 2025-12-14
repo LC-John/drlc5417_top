@@ -123,8 +123,29 @@ function initDesktopUI() {
 			}
 		});
 		
+		const tetrisGame = new Tetris({
+			canvas: document.getElementById('tetris-canvas'),
+			cellSize: 30,
+			scoreElement: document.getElementById('tetris-score'),
+			levelElement: document.getElementById('tetris-level'),
+			linesElement: document.getElementById('tetris-lines'),
+			highScoreElement: document.getElementById('tetris-high-score'),
+			startButton: document.getElementById('tetris-start-btn'),
+			restartButton: document.getElementById('tetris-restart-btn'),
+			gameOverPanel: document.getElementById('tetris-game-over'),
+			finalScoreElement: document.getElementById('tetris-final-score'),
+			gameOverHighScoreElement: document.getElementById('tetris-game-over-high-score'),
+			onStateChange: (event) => {
+				const startBtn = document.getElementById('tetris-start-btn');
+				if (startBtn && event.buttonText) {
+					startBtn.textContent = event.buttonText;
+				}
+			}
+		});
+		
 		window.desktopMinesweeperGame = minesweeperGame;
 		window.desktopSnakeGame = snakeGame;
+		window.desktopTetrisGame = tetrisGame;
 	}
 	
 	function initDesktopEchoBot() {

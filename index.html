@@ -46,6 +46,10 @@
 						<div class="icon-chat">💬</div>
 						<span>Chat</span>
 					</div>
+					<div class="desktop-icon" data-window="tetris" style="top: 30px; left: 240px;">
+						<div class="icon-tetris">🧱</div>
+						<span>Tetris</span>
+					</div>
 				</div>
 
 				<div class="window" id="window-about" style="top: 100px; left: 150px; width: 600px;">
@@ -188,6 +192,64 @@
 					<div class="resize-handle resize-bottom"></div>
 					<div class="resize-handle resize-corner"></div>
 				</div>
+
+				<div class="window" id="window-tetris" style="top: 100px; left: 400px; width: 500px; height: 680px;">
+					<div class="window-titlebar">
+						<div class="window-title">
+							<span>🧱</span>
+							<span>Tetris</span>
+						</div>
+						<div class="window-controls">
+							<div class="window-btn minimize-btn">_</div>
+							<div class="window-btn maximize-btn">□</div>
+							<div class="window-btn close-btn">×</div>
+						</div>
+					</div>
+					<div class="window-content" style="padding: 10px; overflow: hidden; position: relative;">
+						<div style="display: flex; gap: 15px; justify-content: center;">
+							<div class="tetris-sidebar">
+								<div class="tetris-stat-box">
+									<div class="tetris-stat-label">Score</div>
+									<div class="tetris-stat-value" id="tetris-score">0</div>
+								</div>
+								<div class="tetris-stat-box">
+									<div class="tetris-stat-label">Level</div>
+									<div class="tetris-stat-value" id="tetris-level">1</div>
+								</div>
+								<div class="tetris-stat-box">
+									<div class="tetris-stat-label">Lines</div>
+									<div class="tetris-stat-value" id="tetris-lines">0</div>
+								</div>
+								<div class="tetris-stat-box">
+									<div class="tetris-stat-label">High</div>
+									<div class="tetris-stat-value" id="tetris-high-score">0</div>
+								</div>
+								<button class="tetris-start-btn" id="tetris-start-btn" style="width: 100%; margin-top: 15px;">Start</button>
+								<div class="tetris-instructions" style="margin-top: 15px; text-align: left; font-size: 11px;">
+									<div>↑/W: Rotate</div>
+									<div>←/A: Left</div>
+									<div>→/D: Right</div>
+									<div>↓/S: Down</div>
+									<div>Space: Drop</div>
+								</div>
+							</div>
+							<div>
+								<canvas id="tetris-canvas" width="300" height="600"></canvas>
+							</div>
+						</div>
+						<div class="tetris-game-over" id="tetris-game-over" style="display: none;">
+							<div class="tetris-game-over-content">
+								<h2>Game Over!</h2>
+								<p>Your Score: <span id="tetris-final-score">0</span></p>
+								<p>High Score: <span id="tetris-game-over-high-score">0</span></p>
+								<button class="tetris-restart-btn" id="tetris-restart-btn">Play Again</button>
+							</div>
+						</div>
+					</div>
+					<div class="resize-handle resize-right"></div>
+					<div class="resize-handle resize-bottom"></div>
+					<div class="resize-handle resize-corner"></div>
+				</div>
 			</div>
 
 			<div class="start-menu" id="start-menu">
@@ -249,6 +311,10 @@
 						<div class="mobile-app" data-app="echobot">
 							<div class="app-icon app-icon-chat">💬</div>
 							<span class="app-name">Chat</span>
+						</div>
+						<div class="mobile-app" data-app="tetris">
+							<div class="app-icon app-icon-tetris">🧱</div>
+							<span class="app-name">Tetris</span>
 						</div>
 					</div>
 				</div>
@@ -339,6 +405,38 @@
 					</div>
 				</div>
 
+				<div class="mobile-app-view" id="mobile-app-tetris">
+					<div class="mobile-app-header">
+						<button class="back-btn">←</button>
+						<span class="app-title">Tetris</span>
+					</div>
+					<div class="mobile-app-content" style="padding: 5px; text-align: center; overflow-y: auto;">
+						<div class="tetris-header" style="padding: 5px; margin-bottom: 5px;">
+							<div class="tetris-info" style="gap: 5px; font-size: 12px;">
+								<div class="tetris-stat">Score: <span id="tetris-score-mobile">0</span></div>
+								<div class="tetris-stat">Level: <span id="tetris-level-mobile">1</span></div>
+								<div class="tetris-stat">Lines: <span id="tetris-lines-mobile">0</span></div>
+								<div class="tetris-stat">High: <span id="tetris-high-score-mobile">0</span></div>
+							</div>
+							<button class="tetris-start-btn" id="tetris-start-btn-mobile" style="padding: 5px 15px; font-size: 12px;">Start</button>
+						</div>
+						<canvas id="tetris-canvas-mobile" width="200" height="400" style="border: 2px solid #808080; cursor: pointer;"></canvas>
+						<div class="tetris-touch-hint" style="margin-top: 8px; font-size: 11px; color: #666; line-height: 1.4;">
+							<div>Tap top: Rotate</div>
+							<div>Tap left/right: Move</div>
+							<div>Tap bottom: Drop</div>
+						</div>
+						<div class="tetris-game-over" id="tetris-game-over-mobile" style="display: none;">
+							<div class="tetris-game-over-content">
+								<h2>Game Over!</h2>
+								<p>Your Score: <span id="tetris-final-score-mobile">0</span></p>
+								<p>High Score: <span id="tetris-game-over-high-score-mobile">0</span></p>
+								<button class="tetris-restart-btn" id="tetris-restart-btn-mobile">Play Again</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<div class="mobile-navbar">
 					<button class="nav-btn" id="theme-btn-mobile">💡</button>
 					<button class="nav-btn" id="home-btn">⌂</button>
@@ -383,6 +481,10 @@
 						<div class="tablet-app" data-app="echobot">
 							<div class="app-icon app-icon-chat">💬</div>
 							<span class="app-name">Chat</span>
+						</div>
+						<div class="tablet-app" data-app="tetris">
+							<div class="app-icon app-icon-tetris">🧱</div>
+							<span class="app-name">Tetris</span>
 						</div>
 					</div>
 				</div>
@@ -469,6 +571,38 @@
 						<div class="chat-input-container">
 							<input type="text" class="chat-input" id="chat-input-tablet" placeholder="Type a message...">
 							<button class="chat-send-btn" id="chat-send-btn-tablet">Send</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="tablet-app-view" id="tablet-app-tetris">
+					<div class="tablet-app-header">
+						<button class="tablet-back-btn">←</button>
+						<span class="tablet-app-title">Tetris</span>
+					</div>
+					<div class="tablet-app-content" style="padding: 10px; text-align: center; overflow-y: auto;">
+						<div class="tetris-header" style="padding: 8px; margin-bottom: 10px;">
+							<div class="tetris-info">
+								<div class="tetris-stat">Score: <span id="tablet-tetris-score">0</span></div>
+								<div class="tetris-stat">Level: <span id="tablet-tetris-level">1</span></div>
+								<div class="tetris-stat">Lines: <span id="tablet-tetris-lines">0</span></div>
+								<div class="tetris-stat">High: <span id="tablet-tetris-high-score">0</span></div>
+							</div>
+							<button class="tetris-start-btn" id="tablet-tetris-start-btn">Start</button>
+						</div>
+						<canvas id="tablet-tetris-canvas" width="300" height="600" style="border: 2px solid #808080; cursor: pointer;"></canvas>
+						<div class="tetris-touch-hint" style="margin-top: 10px; font-size: 13px; color: #666; line-height: 1.5;">
+							<div>Tap top area: Rotate</div>
+							<div>Tap left/right: Move</div>
+							<div>Tap bottom: Drop</div>
+						</div>
+						<div class="tetris-game-over" id="tablet-tetris-game-over" style="display: none;">
+							<div class="tetris-game-over-content">
+								<h2>Game Over!</h2>
+								<p>Your Score: <span id="tablet-tetris-final-score">0</span></p>
+								<p>High Score: <span id="tablet-tetris-game-over-high-score">0</span></p>
+								<button class="tetris-restart-btn" id="tablet-tetris-restart-btn">Play Again</button>
+							</div>
 						</div>
 					</div>
 				</div>

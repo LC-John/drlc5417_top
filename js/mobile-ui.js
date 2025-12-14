@@ -119,8 +119,30 @@ function initMobileUI() {
 			}
 		});
 		
+		const tetrisGame = new Tetris({
+			canvas: document.getElementById('tetris-canvas-mobile'),
+			cellSize: 20,
+			scoreElement: document.getElementById('tetris-score-mobile'),
+			levelElement: document.getElementById('tetris-level-mobile'),
+			linesElement: document.getElementById('tetris-lines-mobile'),
+			highScoreElement: document.getElementById('tetris-high-score-mobile'),
+			startButton: document.getElementById('tetris-start-btn-mobile'),
+			restartButton: document.getElementById('tetris-restart-btn-mobile'),
+			gameOverPanel: document.getElementById('tetris-game-over-mobile'),
+			finalScoreElement: document.getElementById('tetris-final-score-mobile'),
+			gameOverHighScoreElement: document.getElementById('tetris-game-over-high-score-mobile'),
+			enableTouchControl: true,
+			onStateChange: (event) => {
+				const startBtn = document.getElementById('tetris-start-btn-mobile');
+				if (startBtn && event.buttonText) {
+					startBtn.textContent = event.buttonText;
+				}
+			}
+		});
+		
 		window.mobileMinesweeperGame = minesweeperGame;
 		window.mobileSnakeGame = snakeGame;
+		window.mobileTetrisGame = tetrisGame;
 	}
 	
 	function initMobileEchoBot() {

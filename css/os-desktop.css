@@ -752,4 +752,49 @@ body.os-desktop.dark-mode .snake-restart-btn:active {
     border-color: #0a0a0a #3a3a3a #3a3a3a #0a0a0a;
 }
 
+body.os-desktop.dark-mode .chat-messages {
+    background: linear-gradient(to bottom, #1a1d29 0%, #252a3a 100%);
+}
+
+body.os-desktop.dark-mode .chat-message.bot {
+    background-color: #2d3748;
+    color: #e2e8f0;
+    border-color: #4a5568;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+body.os-desktop.dark-mode .chat-message.user {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+body.os-desktop.dark-mode .chat-input-container {
+    background: linear-gradient(to top, #1a202c 0%, #2d3748 100%);
+    border-top-color: #4a5568;
+}
+
+body.os-desktop.dark-mode .chat-input {
+    background-color: #2d3748;
+    color: #e2e8f0;
+    border-color: #4a5568;
+}
+
+body.os-desktop.dark-mode .chat-input::placeholder {
+    color: #a0aec0;
+}
+
+body.os-desktop.dark-mode .chat-input:focus {
+    border-color: #667eea;
+    background-color: #374151;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+body.os-desktop.dark-mode .chat-messages::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+body.os-desktop.dark-mode .chat-messages::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
 

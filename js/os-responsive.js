@@ -28,8 +28,10 @@
 		loadScript('js/shared/content-data.js', function() {
 			loadScript('js/games/minesweeper.js', function() {
 				loadScript('js/games/snake.js', function() {
-					sharedLoaded = true;
-					callback();
+					loadScript('js/games/tetris.js', function() {
+						sharedLoaded = true;
+						callback();
+					});
 				});
 			});
 		});

@@ -1,24 +1,24 @@
 const ContentData = {
 	about: {
-		name: "Zhang Huangzhao",
-		nameChinese: "张煌昭",
-		photo: "img/me.jpg",
-		bio: [
-			"Hi! My name is <b>Zhang Huangzhao (张煌昭 in Chinese)</b>.",
-			"I got my bachelor's degree of CS from <b>Yuan Pei College, PKU (北京大学元培学院)</b>, and PhD from <b>School of Computer Science, PKU (北京大学计算机学院)</b>.",
-			"I served as a pricipal engineer in 2012 Lab of Huawei from 2024 to 2025.",
-			"Now I am working on agentic system for software engineering..."
-		],
-		contact: {
-			email: "zhang_hz@pku.edu.cn",
-			wechat: "dr__lc",
-			wechatNote: "Note that there are two underscores, and please <b>include your name in the friend request.</b>",
-			github: {
-				username: "LC-John",
-				url: "https://github.com/LC-John"
-			}
-		}
-	},
+  name: "Zhang Huangzhao",
+  nameChinese: "张煌昭",
+  photo: "img/me.jpg",
+  bio: [
+    "Hi! My name is <b>Zhang Huangzhao (张煌昭 in Chinese)</b>.",
+    "I received my bachelor's degree in Computer Science from <b>Yuanpei College, Peking University (北京大学元培学院)</b>, and my PhD from the <b>School of Computer Science, Peking University (北京大学计算机学院)</b>.",
+    "I served as a principal engineer at Huawei 2012 Lab from 2024 to 2025.",
+    "Now I am working on building agentic systems for software engineering..."
+  ],
+  contact: {
+    email: "zhang_hz@pku.edu.cn",
+    wechat: "dr__lc",
+    wechatNote: "Note that there are two underscores, and please <b>include your name in the friend request.</b>",
+    github: {
+      username: "LC-John",
+      url: "https://github.com/LC-John"
+    }
+  }
+},
 
 	github: {
 		profileImage: "img/github_progile.png",
