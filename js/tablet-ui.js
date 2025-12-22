@@ -7,7 +7,7 @@ function initTabletUI() {
 	const data = window.ContentData;
 	
 	renderAboutContent();
-	renderWorksContent();
+	renderPublicationsContent();
 	renderGitHubContent();
 	initTabletGames();
 	initTabletEchoBot();
@@ -31,27 +31,54 @@ function initTabletUI() {
 		`;
 	}
 	
-	function renderWorksContent() {
-		const container = document.querySelector('#tablet-app-works .tablet-app-content');
+	function renderPublicationsContent() {
+		const container = document.querySelector('#tablet-app-publications .tablet-app-content');
 		if (!container) return;
 		
-		let html = '<h3>Research Papers:</h3>';
-		data.works.papers.forEach(paper => {
-			html += '<div class="paper-item">';
-			html += `[*] ${paper.authors}. ${paper.title}. ${paper.venue}. <a href="${paper.url}" target="_blank">[Link]</a>`;
-			if (paper.note) {
-				html += ` ${paper.note}`;
-			}
-			html += '</div>';
+		let html = '<div class="publications-list">';
+		data.works.papers.forEach((paper, index) => {
+			html += `
+				<div class="publication-card" data-pdf="${paper.pdfUrl}" data-title="${paper.title}">
+					<div class="pub-card-title">${paper.title}</div>
+					<div class="pub-card-authors">${paper.authors}</div>
+					<div class="pub-card-venue">${paper.venue}</div>
+					${paper.note ? `<div class="pub-card-note">${paper.note}</div>` : ''}
+				</div>
+			`;
 		});
-		html += '<h3>Projects:</h3>';
-		data.works.projects.forEach(project => {
-			html += '<div class="paper-item">';
-			html += `[*] ${project.name} -- ${project.description}. <a href="${project.url}" target="_blank">[Link]</a>`;
-			html += '</div>';
-		});
+		html += '</div>';
 		
 		container.innerHTML = html;
+		
+		const pubCards = container.querySelectorAll('.publication-card');
+		pubCards.forEach(card => {
+			card.addEventListener('click', function() {
+				const pdfUrl = this.getAttribute('data-pdf');
+				const title = this.getAttribute('data-title');
+				if (pdfUrl) {
+					openTabletPdfViewer(pdfUrl, title);
+				}
+			});
+		});
+	}
+	
+	function openTabletPdfViewer(pdfUrl, title) {
+		const pdfView = document.getElementById('tablet-app-pdf');
+		const pdfIframe = document.getElementById('tablet-pdf-iframe');
+		const pdfTitle = document.getElementById('tablet-pdf-title');
+		
+		if (pdfView && pdfIframe && pdfTitle) {
+			const shortTitle = title.length > 40 ? title.substring(0, 37) + '...' : title;
+			pdfTitle.textContent = shortTitle;
+			pdfIframe.src = pdfUrl;
+			
+			document.querySelectorAll('.tablet-app-view').forEach(view => {
+				view.classList.remove('active');
+			});
+			
+			pdfView.classList.add('active');
+			document.getElementById('tablet-home-screen').style.display = 'none';
+		}
 	}
 	
 	function renderGitHubContent() {

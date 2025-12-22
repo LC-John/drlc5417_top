@@ -38,6 +38,22 @@ function initTabletOS() {
 		});
 	});
 
+	const tabletPdfBack = document.getElementById('tablet-pdf-back');
+	if (tabletPdfBack) {
+		tabletPdfBack.addEventListener('click', function(e) {
+			e.stopPropagation();
+			const pdfView = document.getElementById('tablet-app-pdf');
+			const publicationsView = document.getElementById('tablet-app-publications');
+			
+			if (pdfView) {
+				pdfView.classList.remove('active');
+			}
+			if (publicationsView) {
+				publicationsView.classList.add('active');
+			}
+		});
+	}
+
 	const homeBtn = document.getElementById('tablet-home-btn');
 	if (homeBtn) {
 		homeBtn.addEventListener('click', function() {

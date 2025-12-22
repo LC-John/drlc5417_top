@@ -7,7 +7,7 @@ function initDesktopUI() {
 	const data = window.ContentData;
 	
 	renderAboutContent();
-	renderWorksContent();
+	renderPublicationsContent();
 	renderGitHubContent();
 	initDesktopGames();
 	initDesktopEchoBot();
@@ -34,25 +34,35 @@ function initDesktopUI() {
 		`;
 	}
 	
-	function renderWorksContent() {
-		const container = document.querySelector('#window-works .window-content');
+	function renderPublicationsContent() {
+		const container = document.querySelector('#window-publications .window-content');
 		if (!container) return;
 		
-		let html = '<h3>Research Papers:</h3><p>';
-		data.works.papers.forEach(paper => {
-			html += `[*] ${paper.authors}. ${paper.title}. ${paper.venue}. <a href="${paper.url}" target="_blank">[Link]</a>`;
-			if (paper.note) {
-				html += ` ${paper.note}`;
-			}
-			html += '<br><br>\n';
+		let html = '<div class="publications-folder">';
+		data.works.papers.forEach((paper, index) => {
+			const shortTitle = paper.title.length > 50 ? paper.title.substring(0, 47) + '...' : paper.title;
+			html += `
+				<div class="publication-item" data-index="${index}" data-pdf="${paper.pdfUrl}">
+					<div class="pub-icon">📄</div>
+					<div class="pub-title">${shortTitle}</div>
+				</div>
+			`;
 		});
-		html += '</p><h3>Projects:</h3><p>';
-		data.works.projects.forEach(project => {
-			html += `[*] ${project.name} -- ${project.description}. <a href="${project.url}" target="_blank">[Link]</a><br><br>\n`;
-		});
-		html += '</p>';
+		html += '</div>';
 		
 		container.innerHTML = html;
+		
+		const pubItems = container.querySelectorAll('.publication-item');
+		pubItems.forEach(item => {
+			item.addEventListener('dblclick', function() {
+				const pdfUrl = this.getAttribute('data-pdf');
+				const index = parseInt(this.getAttribute('data-index'));
+				const paper = data.works.papers[index];
+				if (window.DesktopWindowManager && pdfUrl) {
+					window.DesktopWindowManager.openPdfWindow(paper.title, pdfUrl);
+				}
+			});
+		});
 	}
 	
 	function renderGitHubContent() {

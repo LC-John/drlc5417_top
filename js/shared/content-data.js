@@ -34,74 +34,86 @@ const ContentData = {
 				authors: "Kechi Zhang, <b>Huangzhao Zhang</b>, Ge Li, Jinliang You, Jia Li, Yunfei Zhao, Zhi Jin",
 				title: "SEAlign: Alignment training for software engineering agent",
 				venue: "ICSE 2026 accepted",
-				url: "https://arxiv.org/abs/2503.18455"
+				url: "https://arxiv.org/abs/2503.18455",
+				pdfUrl: "pdf/sealign-icse2026.pdf"
 			},
 			{
 				authors: "<b>Huangzhao Zhang</b>, Kechi Zhang, Zhuo Li, Jia Li, Jia Li, Yongmin Li, Yunfei Zhao, Fang Liu, Ge Li, Zhi Jin",
 				title: "Deep Learning for Code Generation: A Survey",
 				venue: "SCIS 2024",
-				url: "https://link.springer.com/article/10.1007/s11432-023-3956-3"
+				url: "https://link.springer.com/article/10.1007/s11432-023-3956-3",
+				pdfUrl: "pdf/dl4cg-survey-scis2024.pdf"
 			},
 			{
 				authors: "<b>Lichen Zhang</b>, Shuai Lu, Nan Duan",
 				title: "Selene: Pioneering Automated Proof in Software Verification",
 				venue: "ACL 2024",
 				url: "https://arxiv.org/abs/2401.07663",
+				pdfUrl: "pdf/selene-acl2024.pdf",
 				note: "(Yes, Lichen is my alias.)"
 			},
 			{
 				authors: "Kechi Zhang, Ge Li, <b>Huangzhao Zhang</b>, Zhi Jin",
 				title: "Hirope: Length extrapolation for code models using hierarchical position",
 				venue: "ACL 2024",
-				url: "https://arxiv.org/abs/2403.19115"
+				url: "https://arxiv.org/abs/2403.19115",
+				pdfUrl: "pdf/hirope-acl2024.pdf"
 			},
 			{
 				authors: "<b>Huangzhao Zhang</b>, Zhuo Li, Jia Li, Zhi Jin, Ge Li",
 				title: "WELL: Applying Bug Detectors to Bug Localization via Weakly Supervised Learning",
 				venue: "JSEP 2024",
-				url: "https://onlinelibrary.wiley.com/doi/full/10.1002/smr.2669"
+				url: "https://onlinelibrary.wiley.com/doi/full/10.1002/smr.2669",
+				pdfUrl: "pdf/well-jsep2024.pdf"
 			},
 			{
 				authors: "Jin Zhao, <b>Huangzhao Zhang</b>, Ming-Zhe Chong, Yue-Yi Zhang, Zi-Wen Zhang, Zong-Kun Zhang, Chao-Hai Du, Pu-Kun Liu",
 				title: "Deep-Learning-Assisted Simultaneous Target Sensing and Super-Resolution Imaging",
 				venue: "ACS AMI 2023",
-				url: "https://pubs.acs.org/doi/10.1021/acsami.3c07812"
+				url: "https://pubs.acs.org/doi/10.1021/acsami.3c07812",
+				pdfUrl: "pdf/dl-imaging-acs2023.pdf"
 			},
 			{
 				authors: "<b>Huangzhao Zhang</b>, Shuai Lu, Zhuo Li, Zhi Jin, Lei Ma, Yang Liu, Ge Li",
 				title: "CodeBERT-Attack: Adversarial Attack against Source CodeDeep Learning Model via Pre-trained Model",
 				venue: "JSEP 2024",
-				url: "https://onlinelibrary.wiley.com/doi/full/10.1002/smr.2571"
+				url: "https://onlinelibrary.wiley.com/doi/full/10.1002/smr.2571",
+				pdfUrl: "pdf/codebert-attack-jsep2024.pdf"
 			},
 			{
 				authors: "Jia Li, Zhuo Li, <b>Huangzhao Zhang</b>, Ge Li, Zhi Jin, Xing Hu, Xin Xia",
 				title: "Poison Attack and Poison Detection on Deep Source Code Processing Models",
 				venue: "ACM TOSEM 2023",
-				url: "https://dl.acm.org/doi/10.1145/3630008"
+				url: "https://dl.acm.org/doi/10.1145/3630008",
+				pdfUrl: "pdf/poison-attack-tosem2023.pdf"
 			},
 			{
 				authors: "Kechi Zhang, Wenhan Wang, <b>Huangzhao Zhang</b>, Ge Li, Zhi Jin",
 				title: "Learning to Represent Programs with Heterogeneous Graphs",
 				venue: "ICPC 2022",
-				url: "https://arxiv.org/pdf/2012.04188.pdf"
+				url: "https://arxiv.org/pdf/2012.04188.pdf",
+				pdfUrl: "pdf/heterogeneous-graphs-icpc2022.pdf"
 			},
 			{
 				authors: "<b>Huangzhao Zhang</b>, Zhiyi Fu, Ge Li, Lei Ma, Zhehao Zhao, HuaAn Yang, Yizhe Sun, Yang Liu, Zhi Jin",
 				title: "Towards Robustness of Deep Program Processing Models -- Detection, Estimation and Enhancement",
 				venue: "ACM TOSEM 2022, 31(3): 1-40",
-				url: "https://dl.acm.org/doi/abs/10.1145/3511887"
+				url: "https://dl.acm.org/doi/abs/10.1145/3511887",
+				pdfUrl: "pdf/robustness-tosem2022.pdf"
 			},
 			{
 				authors: "<b>Huangzhao Zhang</b>, Zhuo Li, Ge Li, Lei Ma, Yang Liu, Zhi Jin",
 				title: "Generating Adversarial Examples for Holding Robustness of Source Code Processing Models",
 				venue: "AAAI 2020: 1169-1176",
-				url: "https://ojs.aaai.org//index.php/AAAI/article/view/5469"
+				url: "https://ojs.aaai.org//index.php/AAAI/article/view/5469",
+				pdfUrl: "pdf/adversarial-examples-aaai2020.pdf"
 			},
 			{
 				authors: "<b>Huangzhao Zhang</b>, Hao Zhou, Ning Miao, Lei Li",
 				title: "Generating Fluent Adversarial Examples for Natural Languages",
 				venue: "ACL (1) 2019: 5564-5569",
-				url: "https://arxiv.org/pdf/2007.06174.pdf"
+				url: "https://arxiv.org/pdf/2007.06174.pdf",
+				pdfUrl: "pdf/fluent-adversarial-acl2019.pdf"
 			}
 		],
 		projects: [

@@ -22,9 +22,9 @@
 						</div>
 						<span>About Me</span>
 					</div>
-					<div class="desktop-icon" data-window="works" style="top: 120px; left: 20px;">
+					<div class="desktop-icon" data-window="publications" style="top: 120px; left: 20px;">
 						<div class="icon-folder">📁</div>
-						<span>My Work</span>
+						<span>Publications</span>
 					</div>
 					<div class="desktop-icon" data-window="github" style="top: 220px; left: 20px;">
 						<div class="icon-github">
@@ -70,11 +70,11 @@
 					<div class="resize-handle resize-corner"></div>
 				</div>
 
-				<div class="window" id="window-works" style="top: 120px; left: 200px; width: 700px; height: 500px;">
+				<div class="window" id="window-publications" style="top: 120px; left: 200px; width: 700px; height: 500px;">
 					<div class="window-titlebar">
 						<div class="window-title">
 							<span>📁</span>
-							<span>My Work</span>
+							<span>Publications</span>
 						</div>
 						<div class="window-controls">
 							<div class="window-btn minimize-btn">_</div>
@@ -288,9 +288,9 @@
 							</div>
 							<span class="app-name">About Me</span>
 						</div>
-						<div class="mobile-app" data-app="works">
+						<div class="mobile-app" data-app="publications">
 							<div class="app-icon app-icon-works">📁</div>
-							<span class="app-name">My Work</span>
+							<span class="app-name">Publications</span>
 						</div>
 						<div class="mobile-app" data-app="github">
 							<div class="app-icon app-icon-github">
@@ -327,10 +327,10 @@
 					<div class="mobile-app-content"></div>
 				</div>
 
-				<div class="mobile-app-view" id="mobile-app-works">
+				<div class="mobile-app-view" id="mobile-app-publications">
 					<div class="mobile-app-header">
 						<button class="back-btn">←</button>
-						<span class="app-title">My Work</span>
+						<span class="app-title">Publications</span>
 					</div>
 					<div class="mobile-app-content"></div>
 				</div>
@@ -437,6 +437,16 @@
 					</div>
 				</div>
 
+				<div class="mobile-app-view" id="mobile-app-pdf">
+					<div class="mobile-app-header">
+						<button class="back-btn" id="mobile-pdf-back">←</button>
+						<span class="app-title" id="mobile-pdf-title">PDF Viewer</span>
+					</div>
+					<div class="mobile-app-content" style="padding: 0; height: calc(100% - 50px);">
+						<iframe id="mobile-pdf-iframe" style="width: 100%; height: 100%; border: none;"></iframe>
+					</div>
+				</div>
+
 				<div class="mobile-navbar">
 					<button class="nav-btn" id="theme-btn-mobile">💡</button>
 					<button class="nav-btn" id="home-btn">⌂</button>
@@ -458,9 +468,9 @@
 							</div>
 							<span class="app-name">About Me</span>
 						</div>
-						<div class="tablet-app" data-app="works">
+						<div class="tablet-app" data-app="publications">
 							<div class="app-icon app-icon-works">📁</div>
-							<span class="app-name">My Work</span>
+							<span class="app-name">Publications</span>
 						</div>
 						<div class="tablet-app" data-app="github">
 							<div class="app-icon app-icon-github">
@@ -497,10 +507,10 @@
 					<div class="tablet-app-content"></div>
 				</div>
 
-				<div class="tablet-app-view" id="tablet-app-works">
+				<div class="tablet-app-view" id="tablet-app-publications">
 					<div class="tablet-app-header">
 						<button class="tablet-back-btn">←</button>
-						<span class="tablet-app-title">My Work</span>
+						<span class="tablet-app-title">Publications</span>
 					</div>
 					<div class="tablet-app-content"></div>
 				</div>
@@ -604,6 +614,16 @@
 								<button class="tetris-restart-btn" id="tablet-tetris-restart-btn">Play Again</button>
 							</div>
 						</div>
+					</div>
+				</div>
+
+				<div class="tablet-app-view" id="tablet-app-pdf">
+					<div class="tablet-app-header">
+						<button class="tablet-back-btn" id="tablet-pdf-back">←</button>
+						<span class="tablet-app-title" id="tablet-pdf-title">PDF Viewer</span>
+					</div>
+					<div class="tablet-app-content" style="padding: 0; height: calc(100% - 60px);">
+						<iframe id="tablet-pdf-iframe" style="width: 100%; height: 100%; border: none;"></iframe>
 					</div>
 				</div>
 

@@ -38,6 +38,22 @@ function initMobileOS() {
 		});
 	});
 
+	const mobilePdfBack = document.getElementById('mobile-pdf-back');
+	if (mobilePdfBack) {
+		mobilePdfBack.addEventListener('click', function(e) {
+			e.stopPropagation();
+			const pdfView = document.getElementById('mobile-app-pdf');
+			const publicationsView = document.getElementById('mobile-app-publications');
+			
+			if (pdfView) {
+				pdfView.classList.remove('active');
+			}
+			if (publicationsView) {
+				publicationsView.classList.add('active');
+			}
+		});
+	}
+
 	const homeBtn = document.getElementById('home-btn');
 	if (homeBtn) {
 		homeBtn.addEventListener('click', function() {

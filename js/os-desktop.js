@@ -8,6 +8,133 @@ $(document).ready(function() {
     let resizingWindow = null;
     let resizeType = null;
     let resizeStartPos = { x: 0, y: 0, width: 0, height: 0, left: 0, top: 0 };
+    let dynamicWindowCounter = 0;
+
+    window.DesktopWindowManager = {
+        openPdfWindow: function(title, pdfUrl) {
+            const windowId = 'pdf-' + (++dynamicWindowCounter);
+            const shortTitle = title.length > 40 ? title.substring(0, 37) + '...' : title;
+            
+            const $window = $('<div>')
+                .addClass('window dynamic-window')
+                .attr('id', 'window-' + windowId)
+                .css({
+                    top: (100 + dynamicWindowCounter * 30) + 'px',
+                    left: (200 + dynamicWindowCounter * 30) + 'px',
+                    width: '800px',
+                    height: '600px',
+                    display: 'block',
+                    zIndex: ++zIndexCounter
+                });
+            
+            const titlebar = `
+                <div class="window-titlebar">
+                    <div class="window-title">
+                        <span>📄</span>
+                        <span>${shortTitle}</span>
+                    </div>
+                    <div class="window-controls">
+                        <div class="window-btn minimize-btn">_</div>
+                        <div class="window-btn maximize-btn">□</div>
+                        <div class="window-btn close-btn">×</div>
+                    </div>
+                </div>
+            `;
+            
+            const content = `
+                <div class="window-content" style="padding: 0;">
+                    <iframe src="${pdfUrl}" style="width: 100%; height: 100%; border: none;"></iframe>
+                </div>
+            `;
+            
+            const resizeHandles = `
+                <div class="resize-handle resize-right"></div>
+                <div class="resize-handle resize-bottom"></div>
+                <div class="resize-handle resize-corner"></div>
+            `;
+            
+            $window.html(titlebar + content + resizeHandles);
+            $('.desktop').append($window);
+            
+            createTaskbarButton(windowId, shortTitle);
+            bringToFront($window);
+            
+            attachDynamicWindowEvents($window);
+        }
+    };
+    
+    function attachDynamicWindowEvents($window) {
+        $window.on('mousedown', function() {
+            bringToFront($(this));
+        });
+        
+        $window.find('.window-titlebar').on('mousedown', function(e) {
+            if ($(e.target).hasClass('window-btn') || $(e.target).parent().hasClass('window-btn')) {
+                return;
+            }
+            
+            draggedWindow = $(this).closest('.window');
+            
+            if (draggedWindow.hasClass('maximized')) {
+                return;
+            }
+            
+            const offset = draggedWindow.offset();
+            dragOffset.x = e.pageX - offset.left;
+            dragOffset.y = e.pageY - offset.top;
+            
+            draggedWindow.css('cursor', 'move');
+            $('body').css('cursor', 'move');
+        });
+        
+        $window.find('.resize-handle').on('mousedown', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            
+            resizingWindow = $(this).closest('.window');
+            const offset = resizingWindow.offset();
+            
+            resizeStartPos.x = e.pageX;
+            resizeStartPos.y = e.pageY;
+            resizeStartPos.width = resizingWindow.width();
+            resizeStartPos.height = resizingWindow.height();
+            resizeStartPos.left = offset.left;
+            resizeStartPos.top = offset.top;
+            
+            if ($(this).hasClass('resize-right')) {
+                resizeType = 'right';
+            } else if ($(this).hasClass('resize-bottom')) {
+                resizeType = 'bottom';
+            } else if ($(this).hasClass('resize-corner')) {
+                resizeType = 'corner';
+            }
+        });
+        
+        $window.find('.close-btn').on('click', function(e) {
+            e.stopPropagation();
+            const $win = $(this).closest('.window');
+            closeDynamicWindow($win);
+        });
+        
+        $window.find('.minimize-btn').on('click', function(e) {
+            e.stopPropagation();
+            const $win = $(this).closest('.window');
+            minimizeWindow($win);
+        });
+        
+        $window.find('.maximize-btn').on('click', function(e) {
+            e.stopPropagation();
+            const $win = $(this).closest('.window');
+            toggleMaximize($win);
+        });
+    }
+    
+    function closeDynamicWindow($window) {
+        const windowId = $window.attr('id').replace('window-', '');
+        $window.remove();
+        removeTaskbarButton(windowId);
+        $('.window').removeClass('active');
+    }
 
     function updateTime() {
         const now = new Date();
