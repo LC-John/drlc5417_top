@@ -9,6 +9,20 @@ $(document).ready(function() {
     let resizeType = null;
     let resizeStartPos = { x: 0, y: 0, width: 0, height: 0, left: 0, top: 0 };
     let dynamicWindowCounter = 0;
+    let lastActiveElement = null;
+
+    setInterval(function() {
+        const activeElement = document.activeElement;
+        if (activeElement && activeElement.tagName === 'IFRAME' && activeElement !== lastActiveElement) {
+            const $window = $(activeElement).closest('.window');
+            if ($window.length > 0) {
+                bringToFront($window);
+            }
+            lastActiveElement = activeElement;
+        } else if (activeElement && activeElement.tagName !== 'IFRAME') {
+            lastActiveElement = null;
+        }
+    }, 100);
 
     window.DesktopWindowManager = {
         openPdfWindow: function(title, pdfUrl) {
@@ -42,7 +56,7 @@ $(document).ready(function() {
             `;
             
             const content = `
-                <div class="window-content" style="padding: 0;">
+                <div class="window-content" style="padding: 0; overflow: hidden;">
                     <iframe src="${pdfUrl}" style="width: 100%; height: 100%; border: none;"></iframe>
                 </div>
             `;
@@ -73,6 +87,9 @@ $(document).ready(function() {
                 return;
             }
             
+            e.preventDefault();
+            e.stopPropagation();
+            
             draggedWindow = $(this).closest('.window');
             
             if (draggedWindow.hasClass('maximized')) {
@@ -85,6 +102,7 @@ $(document).ready(function() {
             
             draggedWindow.css('cursor', 'move');
             $('body').css('cursor', 'move');
+            draggedWindow.find('iframe').css('pointer-events', 'none');
         });
         
         $window.find('.resize-handle').on('mousedown', function(e) {
@@ -100,6 +118,8 @@ $(document).ready(function() {
             resizeStartPos.height = resizingWindow.height();
             resizeStartPos.left = offset.left;
             resizeStartPos.top = offset.top;
+            
+            resizingWindow.find('iframe').css('pointer-events', 'none');
             
             if ($(this).hasClass('resize-right')) {
                 resizeType = 'right';
@@ -279,6 +299,9 @@ $(document).ready(function() {
             return;
         }
         
+        e.preventDefault();
+        e.stopPropagation();
+        
         draggedWindow = $(this).closest('.window');
         
         if (draggedWindow.hasClass('maximized')) {
@@ -365,10 +388,12 @@ $(document).ready(function() {
         if (draggedWindow) {
             draggedWindow.css('cursor', 'default');
             $('body').css('cursor', 'default');
+            draggedWindow.find('iframe').css('pointer-events', 'auto');
             draggedWindow = null;
         }
         
         if (resizingWindow) {
+            resizingWindow.find('iframe').css('pointer-events', 'auto');
             resizingWindow = null;
             resizeType = null;
         }
