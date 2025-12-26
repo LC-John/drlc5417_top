@@ -11,6 +11,16 @@
 		<link href="css/os-responsive.css" rel="stylesheet">
 		<script src="js/jquery.min.js"></script>
 		<script src="js/config.js"></script>
+		<script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1.8.0/dist/es-module-shims.min.js"></script>
+		<script type="importmap">
+		{
+			"imports": {
+				"three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+				"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/",
+				"@pixiv/three-vrm": "https://cdn.jsdelivr.net/npm/@pixiv/three-vrm@3.0.0/lib/three-vrm.module.min.js"
+			}
+		}
+		</script>
 	</head>
 	<body>
 		<div class="desktop-wrapper">
@@ -49,6 +59,10 @@
 					<div class="desktop-icon" data-window="tetris" style="top: 30px; left: 240px;">
 						<div class="icon-tetris">🧱</div>
 						<span>Tetris</span>
+					</div>
+					<div class="desktop-icon" data-window="avatar" style="top: 140px; left: 240px;">
+						<div class="icon-avatar">🎭</div>
+						<span>Avatar</span>
 					</div>
 				</div>
 
@@ -244,6 +258,34 @@
 								<p>High Score: <span id="tetris-game-over-high-score">0</span></p>
 								<button class="tetris-restart-btn" id="tetris-restart-btn">Play Again</button>
 							</div>
+						</div>
+					</div>
+					<div class="resize-handle resize-right"></div>
+					<div class="resize-handle resize-bottom"></div>
+					<div class="resize-handle resize-corner"></div>
+				</div>
+
+				<div class="window" id="window-avatar" style="top: 80px; left: 300px; width: 800px; height: 550px;">
+					<div class="window-titlebar">
+						<div class="window-title">
+							<span>🎭</span>
+							<span>Avatar</span>
+						</div>
+						<div class="window-controls">
+							<div class="window-btn minimize-btn">_</div>
+							<div class="window-btn maximize-btn">□</div>
+							<div class="window-btn close-btn">×</div>
+						</div>
+					</div>
+					<div class="window-content" id="avatar-content" style="padding: 10px; display: flex; gap: 10px; height: calc(100% - 30px);">
+						<div class="avatar-container" style="flex: 2; position: relative;">
+							<canvas id="avatar-canvas"></canvas>
+							<div id="avatar-loading" class="avatar-loading">Loading VRM model...</div>
+						</div>
+						<div class="camera-container" style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+							<video id="avatar-video" autoplay playsinline></video>
+							<div id="avatar-status" class="avatar-status">Camera: Not started</div>
+							<button id="avatar-start-btn" class="avatar-btn">Start Camera</button>
 						</div>
 					</div>
 					<div class="resize-handle resize-right"></div>
