@@ -11,6 +11,7 @@ function initDesktopUI() {
 	renderGitHubContent();
 	initDesktopGames();
 	initDesktopEchoBot();
+	initDesktopAvatar();
 	
 	function renderAboutContent() {
 		const container = document.querySelector('#window-about .window-content');
@@ -220,6 +221,17 @@ function initDesktopUI() {
 			if (e.key === 'Enter') {
 				sendMessage();
 			}
+		});
+	}
+	
+	function initDesktopAvatar() {
+		if (window.desktopAvatarInitialized) return;
+		window.desktopAvatarInitialized = true;
+		
+		import('./avatar.js').then(module => {
+			module.initAvatar();
+		}).catch(err => {
+			console.error('Failed to load avatar module:', err);
 		});
 	}
 }
