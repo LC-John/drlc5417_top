@@ -115,6 +115,10 @@ class AvatarController {
         const startButton = document.getElementById('avatar-start-btn');
         
         try {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                throw new Error('Camera access requires HTTPS. Please visit https://drlc5417.top');
+            }
+            
             statusElement.textContent = 'Requesting camera...';
             
             const stream = await navigator.mediaDevices.getUserMedia({

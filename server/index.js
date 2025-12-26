@@ -12,8 +12,11 @@ app.use(helmet());
 app.use(cors({
   origin: function(origin, callback) {
     if (!origin) return callback(null, true);
-    // 允许 localhost 和 drlc5417.top
-    if (origin.match(/^https?:\/\/(localhost|127\.0\.0\.1|drlc5417\.top|www\.drlc5417\.top)(:\d+)?$/)) {
+    // 允许 localhost (HTTP/HTTPS) 和 drlc5417.top (仅 HTTPS)
+    if (origin.match(/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/)) {
+      return callback(null, true);
+    }
+    if (origin.match(/^https:\/\/(drlc5417\.top|www\.drlc5417\.top)$/)) {
       return callback(null, true);
     }
     callback(new Error('Not allowed by CORS'));
