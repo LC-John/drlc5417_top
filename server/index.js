@@ -6,6 +6,7 @@ const rateLimit = require('express-rate-limit');
 const https = require('https');
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
 
 app.use(helmet());
