@@ -11,9 +11,12 @@ class AvatarController {
         this.clock = new THREE.Clock();
         this.videoElement = null;
         this.faceLandmarker = null;
+        this.poseLandmarker = null;
         this.isRunning = false;
         this.animationFrameId = null;
         this.lastResults = null;
+        this.lastPoseResults = null;
+        this.smoothedBones = {};
     }
 
     async init() {
@@ -27,8 +30,8 @@ class AvatarController {
         const height = container.clientHeight;
         
         this.camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 1000);
-        this.camera.position.set(0, 1.4, 1.5);
-        this.camera.lookAt(0, 1.2, 0);
+        this.camera.position.set(0, 1.45, 1.2);
+        this.camera.lookAt(0, 1.35, 0);
         
         this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
         this.renderer.setSize(width, height);
@@ -132,14 +135,17 @@ class AvatarController {
                 this.videoElement.onloadedmetadata = resolve;
             });
             
-            statusElement.textContent = 'Loading face detection...';
-            await this.initFaceLandmarker();
+            statusElement.textContent = 'Loading face + body detection...';
+            await Promise.all([
+                this.initFaceLandmarker(),
+                this.initPoseLandmarker()
+            ]);
             
             this.isRunning = true;
             startButton.textContent = 'Stop Camera';
-            statusElement.textContent = 'Camera: Active';
+            statusElement.textContent = 'Tracking: Face + Body';
             
-            this.detectFaces();
+            this.detect();
         } catch (error) {
             console.error('Camera error:', error);
             statusElement.textContent = 'Camera: Error - ' + error.message;
@@ -167,21 +173,47 @@ class AvatarController {
         });
     }
 
-    detectFaces() {
-        if (!this.isRunning || !this.faceLandmarker || !this.videoElement) return;
-        
-        const results = this.faceLandmarker.detectForVideo(
-            this.videoElement,
-            performance.now()
+    async initPoseLandmarker() {
+        const { PoseLandmarker, FilesetResolver } = await import(
+            'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.8/vision_bundle.mjs'
         );
         
-        this.lastResults = results;
+        const filesetResolver = await FilesetResolver.forVisionTasks(
+            'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.8/wasm'
+        );
         
-        if (this.vrm && results.faceBlendshapes && results.faceBlendshapes.length > 0) {
-            this.applyFaceToVRM(results);
+        this.poseLandmarker = await PoseLandmarker.createFromOptions(filesetResolver, {
+            baseOptions: {
+                modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task',
+                delegate: 'GPU'
+            },
+            runningMode: 'VIDEO',
+            numPoses: 1
+        });
+    }
+
+    detect() {
+        if (!this.isRunning || !this.videoElement) return;
+        
+        const timestamp = performance.now();
+        
+        if (this.faceLandmarker) {
+            const faceResults = this.faceLandmarker.detectForVideo(this.videoElement, timestamp);
+            this.lastResults = faceResults;
+            if (this.vrm && faceResults.faceBlendshapes && faceResults.faceBlendshapes.length > 0) {
+                this.applyFaceToVRM(faceResults);
+            }
         }
         
-        requestAnimationFrame(() => this.detectFaces());
+        if (this.poseLandmarker) {
+            const poseResults = this.poseLandmarker.detectForVideo(this.videoElement, timestamp);
+            this.lastPoseResults = poseResults;
+            if (this.vrm && poseResults.landmarks && poseResults.landmarks.length > 0) {
+                this.applyPoseToVRM(poseResults);
+            }
+        }
+        
+        requestAnimationFrame(() => this.detect());
     }
 
     applyFaceToVRM(results) {
@@ -190,10 +222,10 @@ class AvatarController {
         blendshapes.forEach(b => { blendshapeMap[b.categoryName] = b.score; });
         
         if (this.vrm.expressionManager) {
-            const leftBlink = blendshapeMap['eyeBlinkLeft'] || 0;
-            const rightBlink = blendshapeMap['eyeBlinkRight'] || 0;
-            this.vrm.expressionManager.setValue('blinkLeft', leftBlink);
-            this.vrm.expressionManager.setValue('blinkRight', rightBlink);
+            const leftBlink = Math.min((blendshapeMap['eyeBlinkLeft'] || 0) * 1.5, 1);
+            const rightBlink = Math.min((blendshapeMap['eyeBlinkRight'] || 0) * 1.5, 1);
+            this.vrm.expressionManager.setValue('blinkLeft', rightBlink);
+            this.vrm.expressionManager.setValue('blinkRight', leftBlink);
             
             const jawOpen = blendshapeMap['jawOpen'] || 0;
             this.vrm.expressionManager.setValue('aa', jawOpen * 0.8);
@@ -216,9 +248,9 @@ class AvatarController {
             if (this.vrm.humanoid) {
                 const head = this.vrm.humanoid.getNormalizedBoneNode('head');
                 if (head) {
-                    head.rotation.x = THREE.MathUtils.clamp(-euler.x * 0.5, -0.5, 0.5);
-                    head.rotation.y = THREE.MathUtils.clamp(euler.y * 0.5, -0.8, 0.8);
-                    head.rotation.z = THREE.MathUtils.clamp(-euler.z * 0.3, -0.3, 0.3);
+                    head.rotation.x = THREE.MathUtils.clamp(euler.x * 0.7, -0.6, 0.6);
+                    head.rotation.y = THREE.MathUtils.clamp(-euler.y * 0.8, -1.0, 1.0);
+                    head.rotation.z = THREE.MathUtils.clamp(-euler.z * 0.5, -0.5, 0.5);
                 }
             }
         }
@@ -235,6 +267,38 @@ class AvatarController {
             this.vrm.lookAt.target = new THREE.Object3D();
             this.vrm.lookAt.target.position.set(lookX * 0.01, 1.4 + lookY * 0.01, 2);
         }
+    }
+
+    applyPoseToVRM(results) {
+        if (!this.vrm || !this.vrm.humanoid) return;
+        
+        const landmarks = results.landmarks[0];
+        const SMOOTHING = 0.15;
+        
+        const lm = landmarks;
+        
+        const shoulderDeltaY = lm[11].y - lm[12].y;
+        const shoulderDeltaZ = lm[11].z - lm[12].z;
+        const spineRotZ = THREE.MathUtils.clamp(shoulderDeltaY * 2, -0.4, 0.4);
+        const spineRotY = THREE.MathUtils.clamp(-shoulderDeltaZ * 3, -0.5, 0.5);
+        
+        const spine = this.vrm.humanoid.getNormalizedBoneNode('spine');
+        const chest = this.vrm.humanoid.getNormalizedBoneNode('chest');
+        
+        if (spine) {
+            this.smoothedBones.spineZ = this.lerp(this.smoothedBones.spineZ ?? 0, spineRotZ, SMOOTHING);
+            this.smoothedBones.spineY = this.lerp(this.smoothedBones.spineY ?? 0, spineRotY, SMOOTHING);
+            spine.rotation.z = this.smoothedBones.spineZ * 0.5;
+            spine.rotation.y = this.smoothedBones.spineY * 0.5;
+        }
+        if (chest) {
+            chest.rotation.z = (this.smoothedBones.spineZ ?? 0) * 0.5;
+            chest.rotation.y = (this.smoothedBones.spineY ?? 0) * 0.5;
+        }
+    }
+
+    lerp(a, b, t) {
+        return a + (b - a) * t;
     }
 
     stopCamera() {
